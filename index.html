@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator App</title>
+    <style>
+      * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "League Spartan", sans-serif;
+}
+
+.container {
+  background-color: hsl(222, 26%, 31%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.box {
+  width: 300px;
+  height: 450px;
+}
+
+#display {
+  width: 100%;
+  height: 15%;
+  border-radius: 0.5rem;
+  background-color: hsl(224, 36%, 15%);
+  color: hsl(0, 0%, 100%);
+  font-size: 30px;
+  font-weight: 700;
+  text-align: right;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+.buttons {
+  width: 100%;
+  margin-top: 30px;
+  height: 70%;
+  border-radius: 0.5rem;
+  background-color: hsl(223, 31%, 20%);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.calc {
+  background-color: white;
+  box-shadow: 2px 2px hsl(28, 16%, 65%);
+  color: hsl(225, 21%, 49%);
+  font-size: 25px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reset {
+  background-color: hsl(285, 91%, 52%);
+  color: aliceblue;
+  grid-column: span 2;
+}
+
+.equal {
+  background-color: lightcoral;
+  color: aliceblue;
+  grid-column: span 2;
+}
+
+.del {
+  background-color: hsl(35, 11%, 61%);
+  color: white;
+}
+
+input[type="text"] {
+  pointer-events: none;
+}
+
+.reset,
+.equal {
+  grid-column: span 2;
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box">
+        <label for="display">
+          <input type="text" autofocus id="display" disabled />
+        </label>
+        <div class="buttons">
+         
+          
+         
+         
+          <button class="calc numbers" value="7">7</button>
+          <button class="calc numbers" value="8">8</button>
+          <button class="calc numbers" value="9">9</button>
+          <button class="calc del" value="del">DEL</button>
+          
+          <button class="calc numbers" value="4">4</button>
+          <button class="calc numbers" value="5">5</button>
+          <button class="calc numbers" value="6">6</button>
+          <button class="calc operator" value="+">+</button>
+         
+          <button class="calc numbers" value="1">1</button>
+          <button class="calc numbers" value="2">2</button>
+          <button class="calc numbers" value="3">3</button>
+          
+          <button class="calc operator" value="-">-</button>
+          <button class="calc operator" value=".">.</button>
+          <button class="calc numbers" value="0">0</button>
+          <button class="calc operator" value="/">/</button>
+          <button class="calc operator" value="*">*</button>
+          <button class="calc operator" value="%">%</button>
+          <button class="calc operator" value="(">(</button>
+        
+          <button class="calc operator" value=")">)</button>
+          <button class="calc reset" value="reset">Reset</button>
+          <button class="calc equal" value="=">=</button>
+        </div>
+      </div>
+    </div>
+    <script >
+            "use strict";
+
+      const display = document.getElementById("display");
+      const numbers = document.querySelectorAll(".numbers");
+      const operators = document.querySelectorAll(".operator");
+      const equals = document.querySelector(".equal");
+      const reset = document.querySelector(".reset");
+      const del = document.querySelector(".del");
+      const trigo = document.querySelectorAll(".trigo");
+      let string = "";
+
+      for (const num of numbers) {
+        num.addEventListener("click", function () {
+          string += num.value;
+          display.value = string;
+          console.log(string);
+        });
+      }
+
+      for (const opr of operators) {
+        opr.addEventListener("click", function () {
+          string += opr.value;
+          display.value = string;
+          console.log(string);
+        });
+      }
+
+      equals.addEventListener("click", function () {
+        const invalidOperators = ["++", "--", "..", "**", "//", "%%"];
+
+        for (const operator of invalidOperators) {
+          if (string.includes(operator)) {
+            display.value = "Math Error";
+            return;
+          }
+        }
+
+        let result = eval(string);
+        display.value = result;
+      });
+
+      reset.addEventListener("click", function () {
+        string = " ";
+        display.value = string;
+      });
+
+      del.addEventListener("click", function () {
+        string = string.slice(0, -1);
+        display.value = string;
+      });
+
+    </script>
+  </body>
+  
+</head>
+</html>
